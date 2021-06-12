@@ -16,6 +16,9 @@ Host Vector-XXXX
     IdentityFIle ~/.ssh/id_rsa_Vector-XXXX
 ```
 
+3. Save and exit the text editor
+
+
 Now, you can use this new `Vector-XXXX` alias for any ssh tools.
 
 Examples:
@@ -24,6 +27,8 @@ Examples:
 
 `ssh Vector-XXXX mount -o remount,rw /`
 
+`ssh Vector-XXXX /sbin/reboot`
+
 `scp /local/file Vector-XXXX:/remote/file`
 
-`ssh Vector-XXXX /sbin/reboot`
+
