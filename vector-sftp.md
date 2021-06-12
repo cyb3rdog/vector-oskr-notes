@@ -5,7 +5,7 @@ By enabling the SFTP, you can use various tools to get convenient access to Vect
 
 This step is also needed in case you want to mount the Vector's filesystem with [sshfs](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-sshfs.md)
 
-Remember, that after updating the the Vector's software / OS / or doing factory reset, these changes will be lost, and you will need to do this step again.
+Remember, that after updating the the Vector's software, or doing factory reset, these changes will be lost, and you will need to do this again.
 
 
 ### 1. SSH to Vector
