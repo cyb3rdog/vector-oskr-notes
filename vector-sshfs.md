@@ -1,63 +1,16 @@
 
 
-# Creating an SSH Alias, to simlify the use of the Identity file:
-
-1. Copy your ssh private key (id_rsa_Vector-XXXX) file over to your linux to ~/.ssh/
-
-2. Create an ssh alias for your Vector, in this example I am using `Vector-XXXX`
-(To edit the file in *nano* editor, use `nano ~/.ssh/config`)
-
-```
-Host Vector-XXXX
-    HostName 192.168.xxx.xxx
-    User root
-    IdentityFIle ~/.ssh/id_rsa_Vector-XXXX
-```
-
-Now, you can use this new `Vector-XXXX` alias for any ssh tools.
-
-Examples:
-
-`ssh Vector-XXXX`
-
-`ssh Vector-XXXX mount -o remount,rw /`
-
-`scp /local/file Vector-XXXX:/remote/file`
-
-
 # Mounting Vector's remote filesystem to your local linux filesystem
 
+First, you will need to change **Vector's SSHD deamon configuration**, to make SFTP working.
 
-## Change Vector's sshd deamon configuration
+- Follow this [guide](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-sftp.md) to do just that.
 
-1. SSH to Vector
+Remember, that after updating the the Vector's software / OS / doing factory reset, these changes will be lost and you will need to do this step again.
 
-`ssh root@192.168.xxx.xxx` (or when using an alias jsut `ssh Vector-XXXX`)
+## Mount Vector's filesystem with *SSHFS*
 
-2. Make Vector's root fs writeable:
-
-`mount -o remount,rw /`
-
-change the sftp subsystem from openssh server to internal sftp in `sshd_config`:
-(To edit the file in *nano* editor, use `sudo nano /etc/ssh/sshd_config`)
-
-```
-#Subsystem sftp /usr/lib/openssh/sftp-server
-Subsystem sftp internal-sftp
-```
-
-3. Exit the ssh session
-
-`exit` or `logout`
-
-4. Reboot your Vector:
-
-`ssh Vector-XXXX /sbin/reboot`
-
-
-## Mount Vector's filesystem with *`SSHFS`*
-
-1. Install sshfs
+1. Install sshfs to your linux
 
 `sudo apt install -y sshfs`
 
@@ -70,34 +23,36 @@ Subsystem sftp internal-sftp
 
 1. Append the following line to `/etc/fstab`
 
-(To edit the file in *nano* editor, use `sudo nano /etc/fstab`)
+- To edit the file for example in *nano* editor, use `sudo nano /etc/fstab`
+- Append following line and save the file
 
 ```
 sshfs#root@192.168.xxx.xxx:/ /mnt/vector-XXXX      fuse    user,_netdev,auto_cache,reconnect,uid=1000,gid=1000,IdentityFile=/full/path/to/.ssh/id_rsa_Vector-XXXX,idmap=user,allow_other,transform_symlinks,follow_symlinks    0       2
 ```
 
-2) To Mount the Vector's filesystem do:
+2) To finally mount the Vector's filesystem do just:
 
 `sudo mount /mnt/vector-XXXX`
 
 
 ### B) Mounting directly with SSHFS
 
-Use either of the following commands to mount:
+Use the following command to mount:
 
 ```
 sudo sshfs -o allow_other,default_permissions,transform_symlinks,follow_symlinks,IdentityFile=/full/path/to/.ssh/id_rsa_Vector-XXXX root@192.168.xxx.xxx:/ /mnt/vector-XXXX/`
 ```
-(or when using an ssh alias just `sudo sshfs -o allow_other,default_permissions,transform_symlinks,follow_symlinks vector-XXXX:/ /mnt/vector-XXXX/`)
+(or when using an [ssh alias](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-ssh_alias.md) call just 
+
+`sudo sshfs -o allow_other,default_permissions,transform_symlinks,follow_symlinks Vector-XXXX:/ /mnt/vector-XXXX/`)
 
 
-Other usefull switches that may improve the speed are *nolocalcaches*, *no_readahead*
+Other usefull switches that may improve the speed and performance are *nolocalcaches*, *no_readahead*
 
 
-## Unmount
+## Unmounting
 
 To unmount the Vector's filesystem use:
 
 `sudo umount /mnt/vector-XXXX`
-
 
