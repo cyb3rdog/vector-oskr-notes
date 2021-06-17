@@ -1,5 +1,5 @@
 
-## Backing up whole userdata parion over the ssh:
+## Backing up whole userdata partition over the ssh:
 
 ```
 ssh root@192.168.xxx.xxx "dd if=/dev/block/bootdevice/by-name/userdata | gzip -1 -" | dd of=./userdata.img.gz status=progress
