@@ -4,7 +4,7 @@
 ```
 ssh root@192.168.xxx.xxx "dd if=/dev/block/bootdevice/by-name/userdata | gzip -1 -" | dd of=./userdata.img.gz status=progress
 ```
-(or when using an [ssh alias](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-ssh_alias.md) just
+(or when using the [ssh alias](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-ssh_alias.md) just
 
 ```ssh Vector-XXXX "dd if=/dev/block/bootdevice/by-name/userdata | gzip -1 -" | dd of=./userdata.img.gz status=progress```
 
@@ -17,14 +17,14 @@ ssh root@192.168.xxx.xxx "dd if=/dev/block/bootdevice/by-name/userdata | gzip -1
 - Create target mountpoint:	```sydo mkdir -p /mnt/userdata```
 - Mount the userdata device:	```sudo mount -o rw,nosuid,nodev,noatime,data=ordered /dev/mapper/userdata /mnt/userdata```
 
+The [mount_userdata.sh](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/scripts/mount_userdata.sh) script does all of this,
+it downloads the partition to local filesystem, copy the encyption file, open and mount it.
+
 
 ### Unmounting UserData
 
 - ```sudo umount /mnt/userdata```
 - ```sudo cryptsetup luksClose userdata```
-
-The [mount_userdata.sh](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/scripts/mount_userdata.sh) script does all of this,
-it downloads the partition to local filesystem, copy the encyption file, open and mount it.
 
 
 ## Restoring the user data partion
