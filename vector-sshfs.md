@@ -42,7 +42,7 @@ Use the following command to mount:
 ```
 sudo sshfs -o allow_other,default_permissions,transform_symlinks,follow_symlinks,IdentityFile=/full/path/to/.ssh/id_rsa_Vector-XXXX root@192.168.xxx.xxx:/ /mnt/vector-XXXX/`
 ```
-(or when using an [ssh alias](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-ssh_alias.md) call just
+(or when using the [ssh alias](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/vector-ssh_alias.md) call just
 
 `sudo sshfs -o allow_other,default_permissions,transform_symlinks,follow_symlinks Vector-XXXX:/ /mnt/vector-XXXX/`)
 
