@@ -21,7 +21,7 @@ Host Vector-XXXX
 
 Now, you can use this new `Vector-XXXX` alias for any ssh tools.
 
-Examples:
+### Examples:
 
 `ssh Vector-XXXX`
 

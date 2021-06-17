@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ! type tmux >/dev/null 2>/dev/null ]; then
+  apt install -y tmux
+fi
+
+if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then
+  echo "Nesting tmux session not allowed!"
+  exit 0
+fi
+
+SESSION=$(tmux list-session | grep 'dev')
+if [ "$SESSION" = ""  ]; then
+  tmux new-session -s dev  \; \
+    send-keys 'tmux set -g mouse on' C-m \; \
+    send-keys 'mc -x' C-m \; \
+    send-keys 'htop' C-m \; \
+    split-window -v -p 37  \;
+else
+  tmux attach-session -t dev
+fi

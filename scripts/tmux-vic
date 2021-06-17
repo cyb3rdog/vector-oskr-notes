@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SSH_VECTOR=vector
+#SSH_VECTOR=root@XX.XX.XX.XX -i <path/to/key>
+
+if [ ! type tmux >/dev/null 2>/dev/null ]; then
+  apt install -y tmux
+fi
+
+if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then
+  echo "Nesting tmux sessions not allowed!"
+  exit 0
+fi
+
+SESSION=$(tmux list-session | grep 'vector')
+if [ "$SESSION" = ""  ]; then
+  tmux new-session -s vector \; \
+    send-keys 'ssh '$SSH_VECTOR' tail -f /var/log/messages' C-m \; \
+    split-window -v -p 65 \; \
+    split-window -h -p 45 \; \
+    send-keys 'ssh '$SSH_VECTOR' top' C-m \; \
+    select-pane -t 1 \; \
+    send-keys 'ssh '$SSH_VECTOR C-m \; \
+    send-keys 'clear' C-m \;
+else
+  tmux attach-session -t vector
+fi
