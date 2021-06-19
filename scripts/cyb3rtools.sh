@@ -12,12 +12,12 @@ if ! command -v curl > /dev/null ; then
   abort "You must install cURL before using this script."
 fi
 
-if ! uname -a | grep "armv7l" ; then
+if ! uname -a | grep -q "armv7l" ; then
   abort "This is not Vector! This script is intended only for armv7l devices."
 fi
 
 ROOT_MOUNT=$(mount | grep "/dev/mmcblk0p22 on / ")
-if ! echo $ROOT_MOUNT | grep "rw," ; then
+if ! echo $ROOT_MOUNT | grep -q "rw," ; then
   echo "Remounting / to rw"
   mount -o remount,rw /
 fi
@@ -44,10 +44,11 @@ DIALOG_RESULT=0
 tempfile=`(tempfile) 2>/dev/null` || tempfile=/tmp/test$$
 trap "rm -f $tempfile" 0 $SIG_NONE $SIG_HUP $SIG_INT $SIG_QUIT $SIG_TERM
 
+export NCURSES_NO_UTF8_ACS=1
 
 install_package() {
   COMMAND="/bin/bash -c 'curl -fsSL "$BASE_URL"/packages/"$1".tar.gz | tar -xzC /'"
-  if uname -a | grep "armv7l" ; then
+  if uname -a | grep -q "armv7l" ; then
     eval $COMMAND
   fi
 }
