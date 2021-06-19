@@ -16,7 +16,7 @@ if ! uname -a | grep -q "armv7l" ; then
   abort "This is not Vector! This script is intended only for armv7l devices."
 fi
 
-ROOT_MOUNT=$(mount | grep "/dev/mmcblk0p22 on / ")
+ROOT_MOUNT=$(mount | grep -q "on / type ext4")
 if ! echo $ROOT_MOUNT | grep -q "rw," ; then
   echo "Remounting / to rw"
   mount -o remount,rw /
