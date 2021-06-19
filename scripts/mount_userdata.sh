@@ -19,7 +19,7 @@ if [ "$SSH_OPTIONS" = "root@XX.XX.XX.XX -i <path/to/key>" ]; then
 fi
 
 # Check the prerequisites
-if [ ! command -v cryptsetup &> /dev/null ]; then
+if ! command -v cryptsetup > /dev/null ; then
   echo "Installing cryptsetup..."
   sudo apt install -y cryptsetup
 fi
