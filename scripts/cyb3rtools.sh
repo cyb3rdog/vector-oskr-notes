@@ -151,9 +151,9 @@ menu_features() {
       process "/sbin/restart" "Restarting Vector..."
       exit 0;;
     "STOP SERVICES")
-      process "systemctl stop anki_robot.target" "Stopping anki-robot.target";menu_features;;
+      process "systemctl stop anki-robot.target" "Stopping anki-robot.target";menu_features;;
     "START SERVICES")
-      process "systemctl start anki_robot.target" "Starting anki-robot.target";menu_features;;
+      process "systemctl start anki-robot.target" "Starting anki-robot.target";menu_features;;
   esac
 }
 
