@@ -13,7 +13,7 @@ ssh root@XX.XX.XX.XX -i <path/to/key>
 
 ### 2. Go for it!
 ```sh
-/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh)"
 ```
 
 
