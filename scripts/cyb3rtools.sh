@@ -139,8 +139,8 @@ menu_features() {
  $DIALOG --clear --title " Cyb3rTools Features Menu " "$@" --menu \
     "\nSelect an option:\n " 15 65 6 \
     "RESTART" "Restarts the Vector" \
-    "STOP SERVICES" "Stops the anki_robot.target services" \
-    "START SERVICES" "Starts the anki_robot.target services" \
+    "STOP SERVICES" "Stops the anki-robot.target services" \
+    "START SERVICES" "Starts the anki-robot.target services" \
     2> $tempfile
   dialog_result $?
 
