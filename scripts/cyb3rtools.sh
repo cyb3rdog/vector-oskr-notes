@@ -148,7 +148,7 @@ menu_features() {
     "1")
       DIALOG_RESULT=99;;
     "RESTART")
-      process "/sbin/restart" "Restarting Vector..."
+      process "/sbin/reboot" "Restarting Vector..."
       exit 0;;
     "STOP SERVICES")
       process "systemctl stop anki-robot.target" "Stopping anki-robot.target";menu_features;;
