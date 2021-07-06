@@ -111,6 +111,7 @@ echo 100;sleep 0.6) | \
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
     "\nSelect a package to install:\n " 15 65 6 \
+    "APT" "The apt, apt-get and dpkg software" \
     "HTOP" "The htop process monitor" \
     "TMUX" "Terminal multiplexer" \
     2> $tempfile
@@ -119,6 +120,8 @@ menu_install() {
   case $DIALOG_RESULT in
     "1")
       DIALOG_RESULT=99;;
+    "APT")
+      item_install apt;;
     "HTOP")
       item_install htop;;
     "TMUX")
