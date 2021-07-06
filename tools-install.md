@@ -21,11 +21,30 @@ ssh root@XX.XX.XX.XX -i <path/to/key>
 
 Use following links to install selected packages to your OSKR robot individually:
 
-#### - Dialog ```/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/dialog.tar.gz | tar -xzC /"```
-#### - Sshfs ```/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/sshfs.tar.gz | tar -xzC /"```
-#### - Htop ```/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/htop.tar.gz | tar -xzC /"```
-#### - Tmux ```/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/tmux.tar.gz | tar -xzC /"```
-#### - Midnight Commander ```/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/mc.tar.gz | tar -xzC /"```
+#### Apt & dpkg
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/apt.tar.gz | tar -xzC /"
+```
+#### Dialog
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/dialog.tar.gz | tar -xzC /"
+```
+#### Sshfs
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/sshfs.tar.gz | tar -xzC /"
+```
+#### Htop
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/htop.tar.gz | tar -xzC /"
+```
+#### Tmux
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/tmux.tar.gz | tar -xzC /"
+```
+#### Midnight Commander
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/mc.tar.gz | tar -xzC /"
+```
 
 
 #### [Back to main page](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/README.md)  
