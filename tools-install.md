@@ -16,6 +16,11 @@ ssh root@XX.XX.XX.XX -i <path/to/key>
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh)"
 ```
 
+This screen should welcome you in the Cyb3rTools:
+
+![image](https://user-images.githubusercontent.com/12493945/124773443-41827580-df3d-11eb-9402-7122580fcf59.png)
+
+
 
 ## Individual packages 
 
