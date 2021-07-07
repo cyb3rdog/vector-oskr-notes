@@ -22,6 +22,12 @@ if ! echo $ROOT_MOUNT | grep -q "rw," ; then
   mount -o remount,rw /  
 fi
 
+# Failsafe
+if ! -d "/home/root/.ssh" ; then
+  mkdir -p /home/root/.ssh
+  cp /data/ssh/authorized_keys /home/root/.ssh/
+fi
+
 # SETUP
 : ${DIALOG=dialog}
 
