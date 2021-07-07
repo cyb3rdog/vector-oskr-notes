@@ -126,9 +126,11 @@ menu_install() {
       echo "Processing initial installation, this may take a while..."
       echo "Please wait..."
       echo ""
-      ldconfig
       apt-get update
       apt-get -f -y --force-yes install
+      ldconfig
+      apt-get -f -y --force-yes install
+      ldconfig
       ;;
     "HTOP")
       item_install htop;;
@@ -139,7 +141,7 @@ menu_install() {
     "FEATURES")
       item_install mc;;
   esac
-  
+
   if [ $DIALOG_RESULT != 99 ];
   then
     menu_install
