@@ -122,8 +122,13 @@ menu_install() {
       DIALOG_RESULT=99;;
     "APT")
       item_install apt
-      process "apt update" "Updating apt packages..."
-      process "apt -f -y --force-yes install" "Correcting dependencies, please wait..."
+      clear
+      echo "Processing initial installation, this may take a while..."
+      echo "Please wait..."
+      echo ""
+      ldconfig
+      apt-get update
+      apt-get -f -y --force-yes install
       ;;
     "HTOP")
       item_install htop;;
@@ -134,6 +139,11 @@ menu_install() {
     "FEATURES")
       item_install mc;;
   esac
+  
+  if [ $DIALOG_RESULT != 99 ];
+  then
+    menu_install
+  fi
 }
 
 item_install() {
