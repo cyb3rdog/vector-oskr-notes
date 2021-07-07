@@ -112,6 +112,8 @@ menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
     "\nSelect a package to install:\n " 15 65 6 \
     "APT" "The apt, apt-get and dpkg software" \
+    "SSHFS" "The fuse + sshfs packages" \
+    "SQUASFS" "Squashfs-tools package" \
     "HTOP" "The htop process monitor" \
     "TMUX" "Terminal multiplexer" \
     2> $tempfile
@@ -134,6 +136,10 @@ menu_install() {
       ;;
     "HTOP")
       item_install htop;;
+    "SSHFS")
+      item_install sshfs;;
+    "SQUASFS")
+      item_install squashfs;;
     "TMUX")
       item_install tmux;;
     "SSHFS")

@@ -10,8 +10,4 @@ Various notes and guides to the Vector's OSKR
 
 ## Chapter II. Tools
 
-- [**Cyb3rTools** (complete collection)](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-install.md)
-- [SSHFS](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-sshfs.md)
-- [TMUX](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-tmux.md)
-- [HTOP](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-htop.md)
-- [Midnight Commander](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-mc.md)
+- [**Cyb3rTools** (complete collection)](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/packages/README.md)
