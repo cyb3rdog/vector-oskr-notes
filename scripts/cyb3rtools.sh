@@ -121,7 +121,10 @@ menu_install() {
     "1")
       DIALOG_RESULT=99;;
     "APT")
-      item_install apt;;
+      item_install apt
+      process "apt update" "Updating apt packages..."
+      process "apt -f -y --force-yes install" "Correcting dependencies, please wait..."
+      ;;
     "HTOP")
       item_install htop;;
     "TMUX")
