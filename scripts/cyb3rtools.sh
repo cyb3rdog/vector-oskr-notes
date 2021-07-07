@@ -148,7 +148,6 @@ menu_install() {
 
 item_install() {
   process "install_package $1" "Installing package '$1'. Please wait..."
-  menu_install
 }
 
 menu_features() {
