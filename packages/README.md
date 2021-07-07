@@ -39,6 +39,10 @@ You can also use following shell commands to install selected packages to your O
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/sshfs.tar.gz | tar -xzC /"
 ```
+### Squashfs
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/squashfs.tar.gz | tar -xzC /"
+```
 ### Htop
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/htop.tar.gz | tar -xzC /"
@@ -46,10 +50,6 @@ You can also use following shell commands to install selected packages to your O
 ### Tmux
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/tmux.tar.gz | tar -xzC /"
-```
-### Midnight Commander
-```sh
-/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/mc.tar.gz | tar -xzC /"
 ```
 
 
