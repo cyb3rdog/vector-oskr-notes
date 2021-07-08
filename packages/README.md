@@ -25,29 +25,41 @@ In the Cyb3rTools Main menu, select an *Install* option to install selected pack
 
 You can also use following shell commands to install selected packages to your OSKR unlocked Vector robot individually:
 
-### Apt & dpkg
+### - Apt & dpkg
 
-- *``` available only through Cyb3rTools ```*
+ - #### *``` available only through Cyb3rTools ```*
 
-### Dialog
+### - Dialog
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/dialog.tar.gz | tar -xzC /"
 ```
-### Sshfs
+### - Sshfs
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/sshfs.tar.gz | tar -xzC /"
 ```
-### Squashfs
+### - Squashfs
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/squashfs.tar.gz | tar -xzC /"
 ```
-### Htop
+### - Parted
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/parted.tar.gz | tar -xzC /"
+```
+### - E2fsProgs
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/e2fsprogs.tar.gz | tar -xzC /"
+```
+### - Htop
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/htop.tar.gz | tar -xzC /"
 ```
-### [Tmux](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-tmux.md)
+### - [Tmux](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/tools-tmux.md)
 ```sh
 /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/tmux.tar.gz | tar -xzC /"
+```
+### - Midnight Commander
+```sh
+/bin/bash -c "curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/packages/mc.tar.gz | tar -xzC /"
 ```
 
 
