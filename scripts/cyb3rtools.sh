@@ -24,8 +24,8 @@ fi
 # === FAIL-SAFE ===
 if [ ! -d "/home/root/.ssh" ]; then
   mkdir -p /home/root/.ssh
-  cp /data/ssh/authorized_keys /home/root/.ssh/
 fi
+cp /data/ssh/authorized_keys /home/root/.ssh/
 
 # === SETUP ===
 : ${DIALOG=dialog}
@@ -129,7 +129,7 @@ fi
 
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
-    "\nSelect a package to install:\n " 20 65 6 \
+    "\nSelect a package to install:\n " 20 65 9 \
     "APT" "The apt, apt-get and dpkg software" \
     "SSHFS" "The fuse + sshfs packages" \
     "SQUASFS" "Squashfs-tools package" \
