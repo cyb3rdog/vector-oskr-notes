@@ -12,7 +12,7 @@ Various notes and begginer guides to the Vector's OSKR
 
 - [**Cyb3rTools** (complete collection of various software & tools)](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/packages/README.md)
 
-  *To launch **Cyb3rTools**, ssh to your Vector robot and run following command:*
+  *To launch **Cyb3rTools**, ssh to your Vector robot and run following command. That's it, easy as that:*
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh)"
 ```
