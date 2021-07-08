@@ -19,6 +19,7 @@ ssh root@XX.XX.XX.XX -i <path/to/key>
 In the Cyb3rTools Main menu, select an *Install* option to install selected packages:
 
 ![image](https://user-images.githubusercontent.com/12493945/124916998-97b1f000-dff3-11eb-869a-5743614bf9da.png)
+![image](https://user-images.githubusercontent.com/12493945/124993493-b8eefc80-e044-11eb-841c-a0d279b7b466.png)
 
 
 ## Individual packages 
