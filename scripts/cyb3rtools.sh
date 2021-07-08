@@ -6,8 +6,7 @@ abort() {
   exit 1
 }
 
-# perform basic checks
-
+# === BASIC CHECKS ===
 if ! command -v curl > /dev/null ; then
   abort "You must install cURL before using this script."
 fi
@@ -22,13 +21,13 @@ if ! echo $ROOT_MOUNT | grep -q "rw," ; then
   mount -o remount,rw /  
 fi
 
-# Failsafe
-if ! -d "/home/root/.ssh" ; then
+# === FAIL-SAFE ===
+if [ ! -d "/home/root/.ssh" ]; then
   mkdir -p /home/root/.ssh
   cp /data/ssh/authorized_keys /home/root/.ssh/
 fi
 
-# SETUP
+# === SETUP ===
 : ${DIALOG=dialog}
 
 : ${DIALOG_OK=0}
@@ -52,19 +51,7 @@ trap "rm -f $tempfile" 0 $SIG_NONE $SIG_HUP $SIG_INT $SIG_QUIT $SIG_TERM
 
 export NCURSES_NO_UTF8_ACS=1
 
-install_package() {
-  COMMAND="/bin/bash -c 'curl -fsSL "$BASE_URL"/packages/"$1".tar.gz | tar -xzC /'"
-  if uname -a | grep -q "armv7l" ; then
-    eval $COMMAND
-  fi
-}
-
-# PREREQUISITES
-if ! command -v dialog > /dev/null ; then
-  install_package 'dialog'
-fi
-
-# WELCOME
+# === WELCOME ===
 
 $DIALOG --title " Cyb3rTools " --clear "$@" --msgbox \
 "Welcome to Cyb3rTools for OSKR!\n\n \
@@ -72,7 +59,19 @@ This interface will allow you to install additional tools, software \
 and use some of the most frequently used features of your OSKR Vector.\n\n \
 Goal of this project is to consolidate as much tools, scripts, \
 and software into one place as possible.\nContributions wanted!\n\nEnjoy!" 15 65
-dialog_result $?
+
+# === FUNCTIONS ===
+
+get_max_width() {
+  MAX_WIDTH=$(/usr/bin/tput cols)
+  if [ -z "$MAX_WIDTH" ]; then 
+    MAX_WIDTH=79
+  fi
+  if [ $MAX_WIDTH \> 150 ]; then
+    MAX_WIDTH=150
+  fi
+  MAX_WIDTH=$(expr $MAX_WIDTH - 12)  
+}
 
 dialog_quit() {
   "$DIALOG" --clear --title " Cyb3rTools " --yesno "\n         Do you really want to quit?" 7 50
@@ -112,7 +111,21 @@ echo 100;sleep 0.6) | \
   $DIALOG --title " Cyb3rTools " --gauge "\n$2" 8 65 0
 }
 
-# SUB MENUS
+install_package() {
+  COMMAND="/bin/bash -c 'curl -fsSL "$BASE_URL"/packages/"$1".tar.gz | tar -xzC /'"
+  if uname -a | grep -q "armv7l" ; then
+    eval $COMMAND
+  fi
+}
+
+# === PREREQUISITES ===
+
+if ! command -v dialog > /dev/null ; then
+  echo "Installing prerequisites. Please wait..."
+  install_package 'dialog'
+fi
+
+# === MENU INSTALL ===
 
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
@@ -127,7 +140,8 @@ menu_install() {
 
   case $DIALOG_RESULT in
     "1")
-      DIALOG_RESULT=99;;
+      DIALOG_RESULT=99
+      return;;
     "APT")
       item_install apt
       clear
@@ -154,20 +168,91 @@ menu_install() {
       item_install mc;;
   esac
 
-  if [ $DIALOG_RESULT != 99 ];
-  then
-    menu_install
-  fi
+  menu_install
 }
 
 item_install() {
   process "install_package $1" "Installing package '$1'. Please wait..."
 }
 
+# MENU STATS
+
+menu_stats() {
+ $DIALOG --clear --title " Cyb3rTools Stats Menu " "$@" --menu \
+    "\nSelect an option:\n " 15 65 6 \
+    "SYSINFO" "Displays the system info" \
+    "MESSAGES" "Tail the messages log" \
+    2> $tempfile
+  dialog_result $?
+
+  case $DIALOG_RESULT in
+    "1")
+      DIALOG_RESULT=99
+      return;;
+    "MESSAGES")
+      get_max_width
+      $DIALOG --title " Messages " --tailbox /var/log/messages 20 $MAX_WIDTH;;
+    "SYSINFO")
+      stats_sysinfo;;
+  esac
+  
+  menu_stats
+}
+
+stats_sysinfo() {
+  
+  PREV_TOTAL=0
+  PREV_IDLE=0
+  DIALOG_RESULT=0
+  while test $DIALOG_RESULT != "1"
+  do
+    cpuTempC=""
+    cpuTempF=""
+    if [[ -f "/sys/class/thermal/thermal_zone0/temp" ]]; then
+      cpuTempC=$(($(cat /sys/class/thermal/thermal_zone0/temp))) && cpuTempF=$((cpuTempC*9/5+32))
+    fi
+
+    CPU=(`sed -n 's/^cpu\s//p' /proc/stat`)
+    IDLE=${CPU[3]} # Just the idle CPU time.
+    TOTAL=0
+    for VALUE in "${CPU[@]}"; do
+      let "TOTAL=$TOTAL+$VALUE"
+    done
+    let "DIFF_IDLE=$IDLE-$PREV_IDLE"
+    let "DIFF_TOTAL=$TOTAL-$PREV_TOTAL"
+    let "DIFF_USAGE=(1000*($DIFF_TOTAL-$DIFF_IDLE)/$DIFF_TOTAL)/10"
+    let "DIFF_USAGEM=(1000*($DIFF_TOTAL-$DIFF_IDLE)/$DIFF_TOTAL)-($DIFF_USAGE*10)"
+
+    PREV_TOTAL="$TOTAL"
+    PREV_IDLE="$IDLE"
+ 
+    cpufreq=$(</sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
+    cpumodel=$(cat /proc/cpuinfo | grep 'model name' | uniq | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//;s/[ \t]*$//')
+    sdcard1=`df -h |head -2 |grep -v G|awk '{print $0}'`
+    memtotal=$(free | grep Mem | awk '{printf "%0.0fM",$2/1024}')
+    memused=$(free | grep Mem | awk '{printf "%0.0fM",$3/1024}')
+          
+    infobox=""  
+    infobox="${infobox}\n$(date +"%A,%e %B %Y, %r")\n"
+    infobox="${infobox}$cpumodel @ $((cpufreq/1000)) MHz\n"
+    infobox="${infobox}$(uname -srmo)\n\n"
+    infobox="${infobox}${sdcard1}\n"
+    infobox="${infobox}CPU Usage:            $DIFF_USAGE.$DIFF_USAGEM% ($(ps ax | wc -l | tr -d " ") processes)\n"
+    infobox="${infobox}CPU Mem:              $memused used / $memtotal total\n"
+    infobox="${infobox}CPU Temp:             ${cpuTempC}°C / ${cpuTempF}°F\n"
+    infobox="${infobox}IP Address:           $(ip route get 8.8.8.8 2>/dev/null | awk '{print $NF; exit}')\n"
+    $DIALOG --title " $(hostname) System Information " --pause "${infobox}" 19 70 0
+    dialog_result $?
+  
+  done
+}
+
+# === MENU FEATURES ===
+
 menu_features() {
  $DIALOG --clear --title " Cyb3rTools Features Menu " "$@" --menu \
     "\nSelect an option:\n " 15 65 6 \
-    "RESTART" "Restarts the Vector" \
+    "REBOOT" "Reboot the Vector" \
     "STOP SERVICES" "Stops the anki-robot.target services" \
     "START SERVICES" "Starts the anki-robot.target services" \
     2> $tempfile
@@ -176,8 +261,8 @@ menu_features() {
   case $DIALOG_RESULT in
     "1")
       DIALOG_RESULT=99;;
-    "RESTART")
-      process "/sbin/reboot" "Restarting Vector..."
+    "REBOOT")
+      process "/sbin/reboot" "Rebooting Vector..."
       exit 0;;
     "STOP SERVICES")
       process "systemctl stop anki-robot.target" "Stopping anki-robot.target";menu_features;;
@@ -186,8 +271,7 @@ menu_features() {
   esac
 }
 
-
-# MAIN MENU
+# === MAIN MENU ===
 
 while test $DIALOG_RESULT != "1"
 do
