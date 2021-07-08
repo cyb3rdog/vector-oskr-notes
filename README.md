@@ -1,5 +1,5 @@
 # VECTOR OSKR NOTES
-Various notes and guides to the Vector's OSKR
+Various notes and begginer guides to the Vector's OSKR
 
 ## Chapter I. SSH
 
@@ -10,4 +10,14 @@ Various notes and guides to the Vector's OSKR
 
 ## Chapter II. Tools
 
-- [**Cyb3rTools** (complete collection)](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/packages/README.md)
+- [**Cyb3rTools** (complete collection of various software & tools)](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/packages/README.md)
+
+  To launch **Cyb3rTools**, ssh to your vector and run following command:
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh)"
+```
+
+![image](https://user-images.githubusercontent.com/12493945/124916998-97b1f000-dff3-11eb-869a-5743614bf9da.png)
+
+For details, go [here](https://github.com/cyb3rdog/vector-oskr-notes/blob/main/packages/README.md)
+
