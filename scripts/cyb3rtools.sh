@@ -67,8 +67,8 @@ get_max_width() {
   if [ -z "$MAX_WIDTH" ]; then
     MAX_WIDTH=79
   fi
-  if [ $MAX_WIDTH \> 180 ]; then
-    MAX_WIDTH=180
+  if [ $MAX_WIDTH \> 200 ]; then
+    MAX_WIDTH=200
   fi
   MAX_WIDTH=$(expr $MAX_WIDTH - 12)
 }
@@ -129,7 +129,7 @@ fi
 
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
-    "\nSelect a package to install:\n " 18 65 6 \
+    "\nSelect a package to install:\n " 20 65 6 \
     "APT" "The apt, apt-get and dpkg software" \
     "SSHFS" "The fuse + sshfs packages" \
     "SQUASFS" "Squashfs-tools package" \
@@ -284,9 +284,9 @@ while test $DIALOG_RESULT != "1"
 do
 
   $DIALOG --clear --title " Cyb3rTools Main Menu " "$@" --menu \
-    "\nSelect an option:\n " 20 65 6 \
+    "\nSelect an option:\n " 15 65 6 \
     "INSTALL" "Install additional packages" \
-    "SCRIPTS" "Run various scripts" \
+    "SCRIPTS" "--- to be added ---" \
     "STATISTICS" "Take a look at Vectors stats" \
     "FEATURES" "Use some integrated features" \
     2> $tempfile
