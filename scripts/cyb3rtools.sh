@@ -18,7 +18,7 @@ fi
 ROOT_MOUNT=$(mount | grep "on / type ext4")
 if ! echo $ROOT_MOUNT | grep -q "rw," ; then
   echo "Remounting / to rw"
-  mount -o remount,rw /  
+  mount -o remount,rw /
 fi
 
 # === FAIL-SAFE ===
@@ -64,13 +64,13 @@ and software into one place as possible.\nContributions wanted!\n\nEnjoy!" 15 65
 
 get_max_width() {
   MAX_WIDTH=$(/usr/bin/tput cols)
-  if [ -z "$MAX_WIDTH" ]; then 
+  if [ -z "$MAX_WIDTH" ]; then
     MAX_WIDTH=79
   fi
-  if [ $MAX_WIDTH \> 150 ]; then
-    MAX_WIDTH=150
+  if [ $MAX_WIDTH \> 180 ]; then
+    MAX_WIDTH=180
   fi
-  MAX_WIDTH=$(expr $MAX_WIDTH - 12)  
+  MAX_WIDTH=$(expr $MAX_WIDTH - 12)
 }
 
 dialog_quit() {
@@ -129,12 +129,15 @@ fi
 
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
-    "\nSelect a package to install:\n " 15 65 6 \
+    "\nSelect a package to install:\n " 18 65 6 \
     "APT" "The apt, apt-get and dpkg software" \
     "SSHFS" "The fuse + sshfs packages" \
     "SQUASFS" "Squashfs-tools package" \
+    "PARTED" "Disk partition manipulator" \
+    "E2FSPROGS" "File system utilities" \
     "HTOP" "The htop process monitor" \
     "TMUX" "Terminal multiplexer" \
+    "MC" "Midnight commander" \
     2> $tempfile
   dialog_result $?
 
@@ -160,11 +163,15 @@ menu_install() {
       item_install sshfs;;
     "SQUASFS")
       item_install squashfs;;
+    "PARTED")
+      item_install parted;;
+    "E2FSPROGS")
+      item_install e2fsprogs;;
     "TMUX")
       item_install tmux;;
     "SSHFS")
       item_install sshfs;;
-    "FEATURES")
+    "MC")
       item_install mc;;
   esac
 
@@ -195,12 +202,12 @@ menu_stats() {
     "SYSINFO")
       stats_sysinfo;;
   esac
-  
+
   menu_stats
 }
 
 stats_sysinfo() {
-  
+
   PREV_TOTAL=0
   PREV_IDLE=0
   DIALOG_RESULT=0
@@ -225,14 +232,14 @@ stats_sysinfo() {
 
     PREV_TOTAL="$TOTAL"
     PREV_IDLE="$IDLE"
- 
+
     cpufreq=$(</sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
     cpumodel=$(cat /proc/cpuinfo | grep 'model name' | uniq | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//;s/[ \t]*$//')
     sdcard1=`df -h |head -2 |grep -v G|awk '{print $0}'`
     memtotal=$(free | grep Mem | awk '{printf "%0.0fM",$2/1024}')
     memused=$(free | grep Mem | awk '{printf "%0.0fM",$3/1024}')
-          
-    infobox=""  
+
+    infobox=""
     infobox="${infobox}\n$(date +"%A,%e %B %Y, %r")\n"
     infobox="${infobox}$cpumodel @ $((cpufreq/1000)) MHz\n"
     infobox="${infobox}$(uname -srmo)\n\n"
@@ -243,7 +250,7 @@ stats_sysinfo() {
     infobox="${infobox}IP Address:           $(ip route get 8.8.8.8 2>/dev/null | awk '{print $NF; exit}')\n"
     $DIALOG --title " $(hostname) System Information " --pause "${infobox}" 19 70 0
     dialog_result $?
-  
+
   done
 }
 
