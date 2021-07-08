@@ -16,11 +16,9 @@ ssh root@XX.XX.XX.XX -i <path/to/key>
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/cyb3rdog/vector-oskr-notes/main/scripts/cyb3rtools.sh)"
 ```
 
-This screen will welcome you in the Cyb3rTools:
+In the Cyb3rTools Main menu, select an *Install* option to install selected packages:
 
-![image](https://user-images.githubusercontent.com/12493945/124773443-41827580-df3d-11eb-9402-7122580fcf59.png)
-
-
+![image](https://user-images.githubusercontent.com/12493945/124916998-97b1f000-dff3-11eb-869a-5743614bf9da.png)
 
 
 ## Individual packages 
