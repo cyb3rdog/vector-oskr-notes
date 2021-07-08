@@ -129,7 +129,7 @@ fi
 
 menu_install() {
   $DIALOG --clear --title " Cyb3rTools Install Menu " "$@" --menu \
-    "\nSelect a package to install:\n " 20 65 9 \
+    "\nSelect a package to install:\n " 19 65 8 \
     "APT" "The apt, apt-get and dpkg software" \
     "SSHFS" "The fuse + sshfs packages" \
     "SQUASFS" "Squashfs-tools package" \
@@ -186,7 +186,7 @@ item_install() {
 
 menu_stats() {
  $DIALOG --clear --title " Cyb3rTools Stats Menu " "$@" --menu \
-    "\nSelect an option:\n " 15 65 6 \
+    "\nSelect an option:\n " 15 65 4 \
     "SYSINFO" "Displays the system info" \
     "MESSAGES" "Tail the messages log" \
     2> $tempfile
@@ -258,7 +258,7 @@ stats_sysinfo() {
 
 menu_features() {
  $DIALOG --clear --title " Cyb3rTools Features Menu " "$@" --menu \
-    "\nSelect an option:\n " 15 65 6 \
+    "\nSelect an option:\n " 15 65 4 \
     "REBOOT" "Reboot the Vector" \
     "STOP SERVICES" "Stops the anki-robot.target services" \
     "START SERVICES" "Starts the anki-robot.target services" \
@@ -284,7 +284,7 @@ while test $DIALOG_RESULT != "1"
 do
 
   $DIALOG --clear --title " Cyb3rTools Main Menu " "$@" --menu \
-    "\nSelect an option:\n " 15 65 6 \
+    "\nSelect an option:\n " 15 65 4 \
     "INSTALL" "Install additional packages" \
     "SCRIPTS" "--- to be added ---" \
     "STATISTICS" "Take a look at Vectors stats" \
