@@ -53,7 +53,7 @@ export NCURSES_NO_UTF8_ACS=1
 
 # === WELCOME ===
 
-$DIALOG --title " Cyb3rTools (preview version)" --clear "$@" --msgbox \
+$DIALOG --title " Cyb3rTools (preview version) " --clear "$@" --msgbox \
 "Welcome to Cyb3rTools for OSKR!\n\n \
 This interface will allow you to install additional tools, software \
 and use some of the most frequently used features of your OSKR Vector.\n\n \
