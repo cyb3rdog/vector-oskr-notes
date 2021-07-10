@@ -53,12 +53,13 @@ export NCURSES_NO_UTF8_ACS=1
 
 # === WELCOME ===
 
-$DIALOG --title " Cyb3rTools " --clear "$@" --msgbox \
+$DIALOG --title " Cyb3rTools (preview version)" --clear "$@" --msgbox \
 "Welcome to Cyb3rTools for OSKR!\n\n \
 This interface will allow you to install additional tools, software \
 and use some of the most frequently used features of your OSKR Vector.\n\n \
 Goal of this project is to consolidate as much tools, scripts, \
-and software into one place as possible.\nContributions wanted!\n\nEnjoy!" 15 65
+and software into one place as possible.\nContributions wanted!\n\n\
+Disclaimer: USE AT YOUR OWN RISK!\n\nEnjoy!" 17 65
 
 # === FUNCTIONS ===
 
@@ -235,20 +236,28 @@ stats_sysinfo() {
 
     cpufreq=$(</sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
     cpumodel=$(cat /proc/cpuinfo | grep 'model name' | uniq | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//;s/[ \t]*$//')
-    sdcard1=`df -h |head -2 |grep -v G|awk '{print $0}'`
+    sdcard1=`df -h |head -3|grep -v 'none'|grep -v 'tmpfs'|awk '{print $0}'`
     memtotal=$(free | grep Mem | awk '{printf "%0.0fM",$2/1024}')
     memused=$(free | grep Mem | awk '{printf "%0.0fM",$3/1024}')
+    
+    local upSeconds="$(cut -d. -f1 /proc/uptime)"
+    local secs=$((upSeconds%60))
+    local mins=$((upSeconds/60%60))
+    local hours=$((upSeconds/3600%24))
+    local days=$((upSeconds/86400))
+    local UPTIME=$(printf "%d days, %02d:%02d:%02d" "$days" "$hours" "$mins" "$secs")    
 
     infobox=""
     infobox="${infobox}\n$(date +"%A,%e %B %Y, %r")\n"
+    infobox="${infobox}Uptime: ${UPTIME}\n"
     infobox="${infobox}$cpumodel @ $((cpufreq/1000)) MHz\n"
     infobox="${infobox}$(uname -srmo)\n\n"
-    infobox="${infobox}${sdcard1}\n"
+    infobox="${infobox}${sdcard1}\n\n"
     infobox="${infobox}CPU Usage:            $DIFF_USAGE.$DIFF_USAGEM% ($(ps ax | wc -l | tr -d " ") processes)\n"
     infobox="${infobox}CPU Mem:              $memused used / $memtotal total\n"
     infobox="${infobox}CPU Temp:             ${cpuTempC}°C / ${cpuTempF}°F\n"
     infobox="${infobox}IP Address:           $(ip route get 8.8.8.8 2>/dev/null | awk '{print $NF; exit}')\n"
-    $DIALOG --title " $(hostname) System Information " --pause "${infobox}" 19 70 0
+    $DIALOG --title " $(hostname) System Information " --pause "${infobox}" 21 70 0
     dialog_result $?
 
   done
